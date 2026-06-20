@@ -1,7 +1,6 @@
-"""
-Vidya AI – Main Streamlit Application
-Home page with navigation, hero section, and feature overview.
-"""
+from dotenv import load_dotenv
+load_dotenv()
+
 import streamlit as st
 from pathlib import Path
 
@@ -100,37 +99,43 @@ st.markdown(
 # ── Feature cards ──────────────────────────────────────────────────────────────
 c1, c2, c3 = st.columns(3)
 features = [
-    ("🎯", "Career Discovery", "Find the perfect career matching your interests, skills, and aptitude with AI-powered recommendations."),
-    ("🏫", "College Finder", "Discover top government and private colleges across India with eligibility and fee details."),
-    ("🎓", "Scholarships", "Search 30+ scholarships sorted by deadline urgency. Never miss an opportunity."),
+    ("🎯", "Career Discovery", "Find the perfect career matching your interests, skills, and aptitude with AI-powered recommendations.", "pages/2_Career_Explorer.py"),
+    ("🏫", "College Finder", "Discover top government and private colleges across India with eligibility and fee details.", "pages/3_College_Finder.py"),
+    ("🎓", "Scholarships", "Search 30+ scholarships sorted by deadline urgency. Never miss an opportunity.", "pages/4_Scholarships.py"),
 ]
-for col, (icon, title, desc) in zip([c1, c2, c3], features):
-    col.markdown(
-        f"""<div class='glass-card' style='text-align:center; height:180px;'>
-          <div style='font-size:2rem'>{icon}</div>
-          <h3 style='color:#f5c842; margin:0.5rem 0 0.25rem'>{title}</h3>
-          <p style='color:#8892b0; font-size:0.88rem; margin:0'>{desc}</p>
-        </div>""",
-        unsafe_allow_html=True,
-    )
+for col, (icon, title, desc, target) in zip([c1, c2, c3], features):
+    with col:
+        st.markdown(
+            f"""<div class='glass-card' style='text-align:center; height:180px; margin-bottom: 0.5rem;'>
+              <div style='font-size:2rem'>{icon}</div>
+              <h3 style='color:#f5c842; margin:0.5rem 0 0.25rem'>{title}</h3>
+              <p style='color:#8892b0; font-size:0.85rem; margin:0; line-height: 1.3;'>{desc}</p>
+            </div>""",
+            unsafe_allow_html=True,
+        )
+        if st.button(f"Open {title}", key=f"btn_{title.replace(' ', '_').lower()}", use_container_width=True):
+            st.switch_page(target)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
 c4, c5, c6 = st.columns(3)
 features2 = [
-    ("📊", "Skill Gap Analysis", "Compare your current skills against your dream career and get a personalised learning path."),
-    ("🗺️", "Learning Roadmap", "Get a month-by-month roadmap to reach your career goal with resources and milestones."),
-    ("🌐", "Bilingual Support", "Chat in English or Malayalam — Vidya AI responds in your preferred language."),
+    ("📊", "Skill Gap Analysis", "Compare your current skills against your dream career and get a personalised learning path.", "pages/5_Skill_Gap_Analyzer.py"),
+    ("🗺️", "Learning Roadmap", "Get a month-by-month roadmap to reach your career goal with resources and milestones.", "pages/5_Skill_Gap_Analyzer.py"),
+    ("🌐", "Bilingual Support", "Chat in English or Malayalam — Vidya AI responds in your preferred language.", "pages/1_Chat_Assistant.py"),
 ]
-for col, (icon, title, desc) in zip([c4, c5, c6], features2):
-    col.markdown(
-        f"""<div class='glass-card' style='text-align:center; height:180px;'>
-          <div style='font-size:2rem'>{icon}</div>
-          <h3 style='color:#f5c842; margin:0.5rem 0 0.25rem'>{title}</h3>
-          <p style='color:#8892b0; font-size:0.88rem; margin:0'>{desc}</p>
-        </div>""",
-        unsafe_allow_html=True,
-    )
+for col, (icon, title, desc, target) in zip([c4, c5, c6], features2):
+    with col:
+        st.markdown(
+            f"""<div class='glass-card' style='text-align:center; height:180px; margin-bottom: 0.5rem;'>
+              <div style='font-size:2rem'>{icon}</div>
+              <h3 style='color:#f5c842; margin:0.5rem 0 0.25rem'>{title}</h3>
+              <p style='color:#8892b0; font-size:0.85rem; margin:0; line-height: 1.3;'>{desc}</p>
+            </div>""",
+            unsafe_allow_html=True,
+        )
+        if st.button(f"Open {title}", key=f"btn_{title.replace(' ', '_').lower()}", use_container_width=True):
+            st.switch_page(target)
 
 st.markdown("<br>", unsafe_allow_html=True)
 

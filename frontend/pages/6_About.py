@@ -1,6 +1,6 @@
 """
 About Page for Vidya AI.
-Kaggle project information, architecture overview, and evidence.
+Student-focused information about the platform's purpose and capabilities.
 """
 import streamlit as st
 from pathlib import Path
@@ -16,34 +16,29 @@ if _CSS.exists():
 
 with st.sidebar:
     st.markdown("## ℹ️ About Vidya AI")
+    st.markdown("Your personal mentor for career and education in India.")
 
 st.markdown("<h1 class='gradient-text'>ℹ️ About Vidya AI</h1>", unsafe_allow_html=True)
 
 st.markdown("""
-### Kaggle AI Agents Intensive Vibe Coding Capstone
+<div class='glass-card'>
+<h3>Empowering Students in India</h3>
 
-**Vidya AI** is a Multi-Agent system designed for the "Agents for Good" track. It provides career, college, and scholarship guidance to Indian students, acting as an AI-powered educational mentor.
+**Vidya AI** is your intelligent, personalized educational mentor. Navigating the choices after 10th, 12th, or college can be overwhelming. We created Vidya to guide you step-by-step toward a successful future.
 
-#### 🏗️ Architecture
+#### ✨ What Vidya AI Does
 
-- **Google ADK**: Used to orchestrate 6 specialized agents and a Router.
-- **MCP Server**: A FastAPI-based Model Context Protocol server exposing data via local JSON stores and Gemini grounding tools.
-- **Gemini 2.0 Flash**: Powers reasoning, intent routing, and Malayalam translation.
-- **Streamlit**: The glassmorphic, bilingual user interface.
+- **Career Discovery**: Confused about what to do next? Tell Vidya your interests, and it will recommend high-demand career paths tailored for you.
+- **College Recommendations**: Find the best colleges in India that match your marks, desired course, and budget.
+- **Scholarship Finder**: Don't let finances hold you back. Vidya actively finds scholarships you are eligible for, prioritizing those with upcoming deadlines.
+- **Skill Gap Analysis**: Find out exactly what skills you need to achieve your dream job compared to what you currently know.
+- **Learning Roadmaps**: Get personalized, month-by-month study plans to help you acquire new skills efficiently.
+- **Bilingual Support**: Chat with Vidya comfortably in English or Malayalam.
 
-#### 🤖 The Agents
-1. **Router Agent**: Detects user intent, language, and extracts entities securely.
-2. **Planner Agent**: Orchestrates multi-step queries (e.g., "Find colleges and scholarships").
-3. **Career Agent**: Maps student interests to high-demand careers.
-4. **College Agent**: Filters Indian colleges by marks, course, and fee.
-5. **Scholarship Agent**: Ranks scholarships by deadline urgency.
-6. **Skill Gap Agent**: Analyzes current vs required skills.
-7. **Roadmap Agent**: Generates month-by-month learning plans.
+#### 🤝 How We Help
 
-#### 🔐 Security & Memory
-- Features prompt injection and safety filtering using `utils/security.py`.
-- Maintains thread-safe, local JSON memory for session context and profile persistence.
+Vidya acts as your virtual counselor available 24/7. Whether you need a quick answer about an entrance exam or a comprehensive multi-year study plan, Vidya breaks down complex educational pathways into simple, actionable steps. 
 
----
-*Built entirely using Prompt-Driven Development via Google Antigravity.*
-""")
+Our goal is simple: to make quality educational guidance accessible to every student in India.
+</div>
+""", unsafe_allow_html=True)

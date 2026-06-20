@@ -60,6 +60,7 @@ def sanitize_input(text: str) -> str:
       - Strip leading/trailing whitespace
       - Normalize Unicode (NFC)
       - Remove null bytes and control characters
+      - Strip HTML/script tags
       - Truncate to MAX_INPUT_LENGTH
     """
     if not text:
@@ -68,6 +69,8 @@ def sanitize_input(text: str) -> str:
     text = unicodedata.normalize("NFC", text)
     # Remove null bytes and non-printable control chars (except newlines/tabs)
     text = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", "", text)
+    # Strip HTML/script tags
+    text = re.sub(r"<[^>]*>", "", text)
     # Strip surrounding whitespace
     text = text.strip()
     # Truncate

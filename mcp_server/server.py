@@ -10,6 +10,9 @@ import time
 from contextlib import asynccontextmanager
 from typing import Any
 
+from dotenv import load_dotenv
+load_dotenv()
+
 from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -88,7 +91,7 @@ class CollegeInfoRequest(BaseModel):
 
 
 class ScholarshipDeadlineRequest(BaseModel):
-    scholarship_names: list[str] = Field(..., min_items=1, max_items=10)
+    scholarship_names: list[str] = Field(..., min_length=1, max_length=10)
 
 
 class CareerTrendsRequest(BaseModel):

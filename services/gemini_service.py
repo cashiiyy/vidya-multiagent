@@ -36,6 +36,9 @@ _INTENT_LABELS = [
 
 def _get_client():
     """Build and return a google.genai Client."""
+    from dotenv import load_dotenv
+    load_dotenv()
+    
     try:
         import google.genai as genai  # type: ignore
         api_key = os.getenv("GEMINI_API_KEY", "")

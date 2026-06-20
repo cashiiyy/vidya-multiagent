@@ -11,7 +11,7 @@ keywords = ["ai", "education", "career", "india", "gemini", "adk", "multi-agent"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
-addopts = "--cov=. --cov-report=term-missing --cov-omit=tests/*,frontend/*"
+addopts = "--cov=. --cov-report=term-missing"
 filterwarnings = ["ignore::DeprecationWarning"]
 
 [tool.coverage.run]

@@ -100,9 +100,11 @@ user_input = st.chat_input(
 
 if user_input:
     st.session_state.messages.append({"role": "user", "content": user_input})
+    st.rerun()
 
-    with st.chat_message("user", avatar="🧑‍🎓"):
-        st.markdown(user_input)
+# ── Process last message if it's from the user ─────────────────────────────────
+if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
+    last_query = st.session_state.messages[-1]["content"]
 
     with st.chat_message("assistant", avatar="🎓"):
         loading_placeholder = st.empty()
@@ -118,7 +120,7 @@ if user_input:
             from agents.router_agent import RouterAgent
             router = RouterAgent()
             result = router.route(
-                query=user_input,
+                query=last_query,
                 session_id=st.session_state.session_id,
             )
 
