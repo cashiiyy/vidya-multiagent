@@ -1,0 +1,23 @@
+[project]
+name = "vidya-ai"
+version = "1.0.0"
+description = "Vidya AI – Multi-Agent Career & Education Mentor for Indian Students"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Vidya AI Team" }]
+keywords = ["ai", "education", "career", "india", "gemini", "adk", "multi-agent"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "--cov=. --cov-report=term-missing --cov-omit=tests/*,frontend/*"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.coverage.run]
+source = ["agents", "mcp_server", "utils"]
+omit = ["tests/*", "frontend/*", "*/site-packages/*"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
