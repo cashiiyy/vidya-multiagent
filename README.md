@@ -70,7 +70,7 @@ python -m mcp_server.server
 
 **Terminal 2 (Streamlit App):**
 ```bash
-streamlit run frontend/app.py
+streamlit run frontend/🧠Vidya.py
 # App opens at http://localhost:8501
 ```
 
