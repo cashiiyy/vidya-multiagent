@@ -20,8 +20,8 @@ from tenacity import (
 
 logger = logging.getLogger(__name__)
 
-# Model to use – flash is fast and free-tier friendly
-_DEFAULT_MODEL = "gemini-2.0-flash"
+# Model to use – fallback to 2.5-flash since 2.0-flash quota was exhausted
+_DEFAULT_MODEL = "gemini-2.5-flash"
 
 # Intent labels the router uses
 _INTENT_LABELS = [
@@ -91,7 +91,7 @@ class GeminiService:
             return response.text.strip() if response.text else ""
         except Exception as exc:
             logger.error("Gemini generate_content failed: %s", exc)
-            return ""
+            raise
 
     @staticmethod
     def _safety_settings() -> list[dict]:
@@ -164,8 +164,12 @@ JSON response:"""
 
         # Extract JSON from response
         try:
-            # Strip markdown code fences if present
-            cleaned = re.sub(r"```(?:json)?\s*|\s*```", "", raw).strip()
+            start = raw.find('{')
+            end = raw.rfind('}')
+            if start != -1 and end != -1:
+                cleaned = raw[start:end+1]
+            else:
+                cleaned = raw
             result = json.loads(cleaned)
             # Validate intents
             result["intents"] = [

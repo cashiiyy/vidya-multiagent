@@ -109,9 +109,11 @@ if st.session_state.messages and st.session_state.messages[-1]["role"] == "user"
     with st.chat_message("assistant", avatar="🎓"):
         loading_placeholder = st.empty()
         loading_placeholder.markdown(
+            "<div style='display:flex; align-items:center; gap:12px; padding:0.5rem 0;'>"
             "<div class='vidya-loading'>"
             "<span></span><span></span><span></span>"
-            "<span style='color:#8892b0; font-size:0.9rem; margin-left:8px'>Thinking...</span>"
+            "</div>"
+            "<span style='color:var(--accent); font-weight:600; font-size:0.95rem; letter-spacing:0.02em;'>Vidya is thinking...</span>"
             "</div>",
             unsafe_allow_html=True,
         )

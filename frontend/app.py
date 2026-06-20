@@ -98,15 +98,15 @@ st.markdown(
 
 # ── Feature cards ──────────────────────────────────────────────────────────────
 c1, c2, c3 = st.columns(3)
-features = [
-    ("🎯", "Career Discovery", "Find the perfect career matching your interests, skills, and aptitude with AI-powered recommendations.", "pages/2_Career_Explorer.py"),
-    ("🏫", "College Finder", "Discover top government and private colleges across India with eligibility and fee details.", "pages/3_College_Finder.py"),
-    ("🎓", "Scholarships", "Search 30+ scholarships sorted by deadline urgency. Never miss an opportunity.", "pages/4_Scholarships.py"),
+features1 = [
+    ("🤖", "AI Mentor", "Get personalised career advice tailored to your interests, skills, and goals.", "pages/1_💬_Chat_Assistant.py"),
+    ("🏫", "College Finder", "Discover top colleges across India matching your required criteria and budget.", "pages/3_🏫_College_Finder.py"),
+    ("🎓", "Scholarships", "Find government and private scholarships you're eligible for with approaching deadlines.", "pages/4_🎓_Scholarships.py"),
 ]
-for col, (icon, title, desc, target) in zip([c1, c2, c3], features):
+for col, (icon, title, desc, target) in zip([c1, c2, c3], features1):
     with col:
         st.markdown(
-            f"""<div class='glass-card' style='text-align:center; height:180px; margin-bottom: 0.5rem;'>
+            f"""<div class='glass-card' style='text-align:center; min-height:160px; margin-bottom: 0.5rem;'>
               <div style='font-size:2rem'>{icon}</div>
               <h3 style='color:#f5c842; margin:0.5rem 0 0.25rem'>{title}</h3>
               <p style='color:#8892b0; font-size:0.85rem; margin:0; line-height: 1.3;'>{desc}</p>
@@ -120,14 +120,14 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 c4, c5, c6 = st.columns(3)
 features2 = [
-    ("📊", "Skill Gap Analysis", "Compare your current skills against your dream career and get a personalised learning path.", "pages/5_Skill_Gap_Analyzer.py"),
-    ("🗺️", "Learning Roadmap", "Get a month-by-month roadmap to reach your career goal with resources and milestones.", "pages/5_Skill_Gap_Analyzer.py"),
-    ("🌐", "Bilingual Support", "Chat in English or Malayalam — Vidya AI responds in your preferred language.", "pages/1_Chat_Assistant.py"),
+    ("📊", "Skill Gap Analysis", "Compare your current skills against your dream career and get a personalised learning path.", "pages/5_📊_Skill_Gap_Analyzer.py"),
+    ("🗺️", "Learning Roadmap", "Get a month-by-month roadmap to reach your career goal with resources and milestones.", "pages/5_📊_Skill_Gap_Analyzer.py"),
+    ("🌐", "Bilingual Support", "Chat in English or Malayalam — Vidya AI responds in your preferred language.", "pages/1_💬_Chat_Assistant.py"),
 ]
 for col, (icon, title, desc, target) in zip([c4, c5, c6], features2):
     with col:
         st.markdown(
-            f"""<div class='glass-card' style='text-align:center; height:180px; margin-bottom: 0.5rem;'>
+            f"""<div class='glass-card' style='text-align:center; min-height:160px; margin-bottom: 0.5rem;'>
               <div style='font-size:2rem'>{icon}</div>
               <h3 style='color:#f5c842; margin:0.5rem 0 0.25rem'>{title}</h3>
               <p style='color:#8892b0; font-size:0.85rem; margin:0; line-height: 1.3;'>{desc}</p>
@@ -158,7 +158,7 @@ with col_b:
     if st.button("✨ Ask Vidya AI", use_container_width=True, key="home_ask_btn"):
         if quick_q.strip():
             st.session_state["pending_query"] = quick_q
-            st.switch_page("pages/1_Chat_Assistant.py")
+            st.switch_page("pages/1_💬_Chat_Assistant.py")
         else:
             st.warning("Please type a question first.")
 

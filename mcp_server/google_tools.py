@@ -24,7 +24,7 @@ import httpx
 
 logger = logging.getLogger(__name__)
 
-_GEMINI_MODEL = "gemini-2.0-flash"
+_GEMINI_MODEL = "gemini-2.5-flash"
 _CSE_ENDPOINT = "https://www.googleapis.com/customsearch/v1"
 
 # ── CSE credential helpers ────────────────────────────────────────────────────

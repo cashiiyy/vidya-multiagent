@@ -108,7 +108,7 @@ def translate_to_language(text: str, target_lang: str, gemini_model=None) -> str
         api_key = os.getenv("GEMINI_API_KEY", "")
         client = genai.Client(api_key=api_key)
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
+            model="gemini-2.5-flash",
             contents=prompt,
         )
         translated = response.text.strip()

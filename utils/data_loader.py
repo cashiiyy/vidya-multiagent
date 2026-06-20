@@ -72,21 +72,37 @@ class DataLoader:
 
     @classmethod
     def search_careers(cls, query: str, category: str | None = None) -> list[CareerResult]:
-        """Fuzzy search careers by name, description, or skills."""
+        """Fuzzy search careers by name, description, or skills using keyword matching."""
+        import re
         query_lower = query.lower()
+        # Extract keywords (ignore short stop words if there are multiple words)
+        words = [w.strip('.,?!;') for w in query_lower.split()]
+        keywords = [w for w in words if w not in {'i', 'love', 'want', 'to', 'be', 'a', 'an', 'the', 'in', 'and', 'my', 'is', 'for'}]
+        if not keywords:
+            keywords = words # fallback if all were stop words
+            
         results = []
         for career in cls.get_careers():
-            # Match on name, description, or required skills
-            name_match = query_lower in career.career_name.lower()
-            desc_match = query_lower in career.description.lower()
-            skill_match = any(query_lower in s.lower() for s in career.required_skills)
-            role_match = any(query_lower in r.lower() for r in career.job_roles)
-            cat_match = (category is None) or (
-                category.lower() == career.category.lower()
+            score = 0
+            # Match keywords against fields
+            text_corpus = (
+                career.career_name.lower() + " " +
+                career.description.lower() + " " +
+                " ".join(s.lower() for s in career.required_skills) + " " +
+                " ".join(r.lower() for r in career.job_roles)
             )
-            if (name_match or desc_match or skill_match or role_match) and cat_match:
-                results.append(career)
-        return results
+            for kw in keywords:
+                if re.search(r'\b' + re.escape(kw) + r'\b', text_corpus):
+                    score += 1
+            
+            cat_match = (category is None) or (category.lower() == career.category.lower())
+            
+            if score > 0 and cat_match:
+                results.append((score, career))
+                
+        # Sort by score descending and return only the objects
+        results.sort(key=lambda x: x[0], reverse=True)
+        return [r for score, r in results]
 
     @classmethod
     def filter_colleges(
