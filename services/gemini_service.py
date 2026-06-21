@@ -46,8 +46,18 @@ def _get_client():
     try:
         import google.genai as genai  # type: ignore
         api_key = os.getenv("GEMINI_API_KEY", "")
+        
+        # Fallback to streamlit secrets if running on Streamlit Cloud
         if not api_key:
-            raise ValueError("GEMINI_API_KEY environment variable is not set.")
+            try:
+                import streamlit as st
+                if "GEMINI_API_KEY" in st.secrets:
+                    api_key = st.secrets["GEMINI_API_KEY"]
+            except ImportError:
+                pass
+                
+        if not api_key:
+            raise ValueError("GEMINI_API_KEY environment variable or Streamlit secret is not set.")
         return genai.Client(api_key=api_key)
     except ImportError as exc:
         raise ImportError(

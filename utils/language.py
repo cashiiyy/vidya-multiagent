@@ -88,6 +88,13 @@ def translate_to_language(text: str, target_lang: str, gemini_model=None) -> str
             import google.genai as genai  # type: ignore
             api_key = os.getenv("GEMINI_API_KEY", "")
             if not api_key:
+                try:
+                    import streamlit as st
+                    if "GEMINI_API_KEY" in st.secrets:
+                        api_key = st.secrets["GEMINI_API_KEY"]
+                except ImportError:
+                    pass
+            if not api_key:
                 logger.warning("GEMINI_API_KEY not set – returning English response")
                 return text
             client = genai.Client(api_key=api_key)
@@ -106,6 +113,13 @@ def translate_to_language(text: str, target_lang: str, gemini_model=None) -> str
     try:
         import google.genai as genai  # type: ignore
         api_key = os.getenv("GEMINI_API_KEY", "")
+        if not api_key:
+            try:
+                import streamlit as st
+                if "GEMINI_API_KEY" in st.secrets:
+                    api_key = st.secrets["GEMINI_API_KEY"]
+            except ImportError:
+                pass
         client = genai.Client(api_key=api_key)
         response = client.models.generate_content(
             model="gemini-2.5-flash",

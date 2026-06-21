@@ -48,6 +48,14 @@ def _gemini_generate(prompt: str, temperature: float = 0.3) -> str:
 
         api_key = os.getenv("GEMINI_API_KEY", "")
         if not api_key:
+            try:
+                import streamlit as st
+                if "GEMINI_API_KEY" in st.secrets:
+                    api_key = st.secrets["GEMINI_API_KEY"]
+            except ImportError:
+                pass
+        
+        if not api_key:
             raise ValueError("GEMINI_API_KEY not set")
 
         client = genai.Client(api_key=api_key)
