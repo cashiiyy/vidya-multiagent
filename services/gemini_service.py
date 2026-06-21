@@ -37,7 +37,11 @@ _INTENT_LABELS = [
 def _get_client():
     """Build and return a google.genai Client."""
     from dotenv import load_dotenv
-    load_dotenv()
+    from pathlib import Path
+    
+    # Load .env from project root
+    env_path = Path(__file__).resolve().parent.parent / ".env"
+    load_dotenv(dotenv_path=env_path)
     
     try:
         import google.genai as genai  # type: ignore
